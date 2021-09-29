@@ -49,6 +49,8 @@ let sidebarToggler = document.querySelector('#sidebar-toggle')
 let trackArtist = document.querySelector('#track-artist')
 let trackTitle = document.querySelector('#track-title')
 let trackCover = document.querySelector('#track-cover')
+let currentTime = document.querySelector('#current-time')
+let totalTime = document.querySelector('#total-time')
 
 
 
@@ -65,11 +67,13 @@ function play() {
     if (!playing) {
         playBtn.classList.add('d-none')
         pauseBtn.classList.remove('d-none')
+        trackCover.classList.add('active')
         track.play()
         playing = true        
     }else{
         playBtn.classList.remove('d-none')
         pauseBtn.classList.add('d-none')
+        trackCover.classList.remove('active')
         track.pause()
         playing = false
     }
@@ -192,8 +196,25 @@ playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', play)
 nextBtn.addEventListener('click', next)
 prevBtn.addEventListener('click', prev)
+track-addEventListener('ended', next)
+
+
 sidebarToggler.addEventListener('click', openSidebar)
 
+setInterval(function(){
+    currentTime. innerHTML = formatTime(track.currentTime)
+    totalTime. innerHTML = formatTime(track.duration)
+    
+},900)
+
+function formatTime(sec){
+    let minutes = Math.floor(sec / 60);
+    let seconds = Math.floor(sec - minutes * 60);
+    if(seconds <10){
+        seconds = `0${seconds}`;
+    }
+    return `${minutes}.${seconds}`;
+}
 
 
 /* impostazione dati prima traccia */
