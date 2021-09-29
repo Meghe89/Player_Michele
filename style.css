@@ -1,3 +1,97 @@
 *{
     font-family: 'Indie Flower', cursive;
 }
+:root{
+    --main : rgb(92,242,120);
+    --middle: rgb(160,230,99);
+    --sec: rgb(242,235,92);
+    --black: rgb(6,15,8);
+    --white: rgb(255,247,215);
+
+}
+
+.tc-main{
+    color: var(--main);
+}
+.tc-middle{
+    color: var(--middle);
+}
+.tc-sec{
+    color: var(--sec);
+}
+.tc-white{
+    color: var(--white);
+}
+.tc-linear{
+    background: linear-gradient(to right, var(--main), var(--middle), var(--sec));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.bg-main{
+    background-color: var(--main);
+}
+.bg-middle{
+    background-color: var(--middle);
+}
+.bg-sec{
+    background-color: var(--sec);
+}
+.player{
+    width: 100vw;
+    height: 100vh;
+    border-radius: 10px;
+    overflow: hidden;
+    
+}
+
+.player .header{
+    height: 50px;
+    background-color: var(--black);
+}
+
+.player .display{
+    width: 100vw;
+    height: 74vh;
+    background-color: transparent;
+}
+.cover{
+    width: 250px;
+    height: 250px;
+    border-radius: 100% ;
+    box-shadow: 0px 0px 40px var(--black), 0px 0px 80px var(--sec);
+}
+.player .commands{
+    height: 96px;
+    background-color: var(--black);
+}
+.artist{
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+}
+.time{
+    margin: 0!important;
+    padding: 9px 9px!important;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    /* for Desktop */
+    .cover{
+        width: 700px;
+        height: 700px;
+        border-radius: 100% ;
+    }
+    .player .display{
+        height: 85vh;
+    }
+    .artist{
+        font-size: 20px;
+    }
+    .time{
+        font-size: 20px;
+    }
+}
