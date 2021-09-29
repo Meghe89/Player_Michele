@@ -44,10 +44,16 @@ let playBtn = document.querySelector('#play-btn')
 let pauseBtn = document.querySelector('#pause-btn')
 let prevBtn = document.querySelector('#prev-btn')
 let nextBtn = document.querySelector('#next-btn')
+let sidebarToggler = document.querySelector('#sidebar-toggle')
 /* dettagli canzone */
 let trackArtist = document.querySelector('#track-artist')
 let trackTitle = document.querySelector('#track-title')
 let trackCover = document.querySelector('#track-cover')
+
+
+
+
+
 
 
 
@@ -115,6 +121,34 @@ function next() {
     
 }
 
+function openSidebar() {
+    let sidebar = document.querySelector('#sidebar')
+    sidebar.classList.toggle('open')
+}
+
+function populateTrackList() {
+    let wrapper = document.querySelector('#tracklist-wrapper')
+    
+    
+    tracks.forEach(track =>{
+        let card = document.createElement('div')
+
+        card.classList.add('col-12')
+        card.innerHTML = 
+        `
+        <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b ">
+            <img class="thumbnail" src="${track.cover}" alt="copertina">
+            <div>
+                <h5 class="artist tc-linear">${track.artist}</h5>
+                <h6 class="artist tc-white">${track.title}</h6>
+            </div>                
+            <i class="far fa-play-circle fs-1 tc-linear"></i>
+            
+        </div>
+        `
+        wrapper.appendChild(card)
+    })
+}
 
 
 /* EVENTI */
@@ -122,6 +156,7 @@ playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', play)
 nextBtn.addEventListener('click', next)
 prevBtn.addEventListener('click', prev)
+sidebarToggler.addEventListener('click', openSidebar)
 
 
 
@@ -131,4 +166,4 @@ trackArtist.innerHTML = tracks[currentTrack].artist
 trackTitle.innerHTML = tracks[currentTrack].title
 trackCover.src = tracks[currentTrack].cover
 
-    
+populateTrackList()

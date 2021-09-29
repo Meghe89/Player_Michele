@@ -29,14 +29,27 @@
     </div>
 
     <!-- sidebar -->
-   <!--  <div id="sidebar">
-        
-    </div> -->
+    <div id="sidebar" class="open">
+        <div class="row" id="tracklist-wrapper">
+            <!-- <div class="col-12 ">
+                <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b track-card">
+                    <img class="thumbnail" src="./cover/cover-1.jpg" alt="copertina">
+                    <div>
+                        <h5 class="artist tc-linear">Artista</h5>
+                        <h6 class="artist tc-white">Titolo</h6>
+                    </div>                
+                    <i class="far fa-play-circle fs-1 tc-linear"></i>
+                    <i class="far fa-pause-circle fs-1 tc-linear"></i>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
 
     <!-- player code -->
     <div class="player vh-100">
-        <div class="header tc-main px-4 py-2 d-flex align-items-center justify-content-end">
-            <h6 class="mb-0">Playlist</h6>
+        <div class="header  px-4 py-2 d-flex align-items-center justify-content-end">
+            <span id="sidebar-toggle" class="mb-0"><i class="fab fa-napster fs-1 tc-linear"></i></span>
         </div>
         <div class="display d-flex align-items-center justify-content-center">
             <img id="track-cover" class="img-fluid cover" src="./cover/cover-1.jpg" alt="Copertina Album">
@@ -44,7 +57,7 @@
         <div class="commands">
             <div class="row ">
                 <div class="col-3  pt-2 ps-5 ">
-                    <h5 id="track-artist" class="artist tc-linear"></h5>
+                    <h5 id="track-artist" class="artist tc-linear fs-3 fw-bold"></h5>
                     <h6 id="track-title" class="artist tc-white"></h6>
                 </div>
                 <div class="col-6 d-flex justify-content-center pt-2 tc-main ">
