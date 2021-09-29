@@ -29,14 +29,32 @@ let tracks = [
     cover : './cover/cover-4.jpg', artist : 'Ghostrifter' , title : 'Transient'},
 ]
 
+
+
 /* variabile globale per far partire la traccia */
 let track = document.querySelector('#track')
-/* associazione dal dom */
-let playBtn = document.querySelector('#play-btn')
-let pauseBtn = document.querySelector('#pause-btn')
+
 let playing = false
 
-/* funzione per avviare il file audio */
+let currentTrack = 0
+
+/* ASSOCIAZIONE DOM */
+/* funzionalità */
+let playBtn = document.querySelector('#play-btn')
+let pauseBtn = document.querySelector('#pause-btn')
+let prevBtn = document.querySelector('#prev-btn')
+let nextBtn = document.querySelector('#next-btn')
+/* dettagli canzone */
+let trackArtist = document.querySelector('#track-artist')
+let trackTitle = document.querySelector('#track-title')
+let trackCover = document.querySelector('#track-cover')
+
+
+
+
+
+/* FUNZIONI */
+/* audio */
 function play() {
     if (!playing) {
         playBtn.classList.add('d-none')
@@ -51,5 +69,66 @@ function play() {
     }
 }
 
+function prev() {
+    currentTrack--
+    
+    if (currentTrack < 0) {
+        currentTrack = tracks.length -1
+    }
+    
+    track.src = tracks[currentTrack].url
+    trackArtist.innerHTML = tracks[currentTrack].artist
+    trackTitle.innerHTML = tracks[currentTrack].title
+    trackCover.src = tracks[currentTrack].cover
+
+    
+    //controllo se la traccia è in esecuzione
+    //se la traccia è in esecuzione e cambio traccia la musica si blocca
+    //quindi devo reimpostare playing a false e farla ripartire
+    if (playing) {
+        playing = false
+        play()        
+    } 
+    
+}
+
+function next() {
+    currentTrack++
+    
+    if (currentTrack > tracks.length -1) {
+        currentTrack = 0
+    }
+    
+    track.src = tracks[currentTrack].url
+    trackArtist.innerHTML = tracks[currentTrack].artist
+    trackTitle.innerHTML = tracks[currentTrack].title
+    trackCover.src = tracks[currentTrack].cover
+
+    
+    //controllo se la traccia è in esecuzione
+    //se la traccia è in esecuzione e cambio traccia la musica si blocca
+    //quindi devo reimpostare playing a false e farla ripartire
+    if (playing) {
+        playing = false
+        play()        
+    } 
+    
+}
+
+
+
+/* EVENTI */
 playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', play)
+nextBtn.addEventListener('click', next)
+prevBtn.addEventListener('click', prev)
+
+
+
+/* impostazione dati prima traccia */
+track.src = tracks[currentTrack].url
+trackArtist.innerHTML = tracks[currentTrack].artist
+trackTitle.innerHTML = tracks[currentTrack].title
+trackCover.src = tracks[currentTrack].cover
+
+    

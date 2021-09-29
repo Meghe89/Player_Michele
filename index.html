@@ -24,34 +24,34 @@
     <audio id="track" src="./audio/Ghostrifter Official - Afternoon Nap.mp3"></audio>
 
     <!-- background -->
-    <div id="background">
+    <div id="background-image">
 
     </div>
 
     <!-- sidebar -->
-    <div id="sidebar">
+   <!--  <div id="sidebar">
         
-    </div>
+    </div> -->
 
     <!-- player code -->
-    <div class="player">
+    <div class="player vh-100">
         <div class="header tc-main px-4 py-2 d-flex align-items-center justify-content-end">
             <h6 class="mb-0">Playlist</h6>
         </div>
         <div class="display d-flex align-items-center justify-content-center">
-            <img class="img-fluid cover" src="./cover/cover-7.jpg" alt="Copertina Album">
+            <img id="track-cover" class="img-fluid cover" src="./cover/cover-1.jpg" alt="Copertina Album">
         </div>
         <div class="commands">
             <div class="row ">
                 <div class="col-3  pt-2 ps-5 ">
-                    <h5 class="artist tc-linear">Nome Artista</h5>
-                    <h6 class="artist tc-white">Titolo Canzone</h6>
+                    <h5 id="track-artist" class="artist tc-linear"></h5>
+                    <h6 id="track-title" class="artist tc-white"></h6>
                 </div>
                 <div class="col-6 d-flex justify-content-center pt-2 tc-main ">
-                    <i class="far fa-arrow-alt-circle-left fs-2 pe-2 pt-1"></i>
+                    <i id="prev-btn" class="far fa-arrow-alt-circle-left fs-2 pe-2 pt-1"></i>
                     <i id="play-btn" class="far fa-play-circle fs-1 tc-linear"></i>
                     <i id="pause-btn" class="far fa-pause-circle fs-1 tc-linear d-none"></i>
-                    <i class="far fa-arrow-alt-circle-right fs-2 pt-1 ps-2"></i>
+                    <i id="next-btn" class="far fa-arrow-alt-circle-right fs-2 pt-1 ps-2"></i>
                 </div>
                 <div class="col-3 d-flex justify-content-end tc-white ">
                     <p class="pe-5 pt-2 time">0.00 / 2.40</p>
