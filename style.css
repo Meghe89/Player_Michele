@@ -117,8 +117,14 @@
 .track-card.active{
     background: linear-gradient(var(--black) 85%, var(--sec));
 }
+.track-card .fa-pause-circle{
+    display: none;
+}
 .track-card.active .fa-play-circle{
     display: none;
+}
+.track-card.active .fa-pause-circle{
+    display: block;
 }
 .border-b.active{
     border-bottom: 2px solid var(--sec);

@@ -82,10 +82,8 @@ function prev() {
         currentTrack = tracks.length -1
     }
     
-    track.src = tracks[currentTrack].url
-    trackArtist.innerHTML = tracks[currentTrack].artist
-    trackTitle.innerHTML = tracks[currentTrack].title
-    trackCover.src = tracks[currentTrack].cover
+    changeTrackDetails()
+    changePlaylistActive()
 
     
     //controllo se la traccia è in esecuzione
@@ -105,10 +103,8 @@ function next() {
         currentTrack = 0
     }
     
-    track.src = tracks[currentTrack].url
-    trackArtist.innerHTML = tracks[currentTrack].artist
-    trackTitle.innerHTML = tracks[currentTrack].title
-    trackCover.src = tracks[currentTrack].cover
+    changeTrackDetails()
+    changePlaylistActive()
 
     
     //controllo se la traccia è in esecuzione
@@ -126,27 +122,67 @@ function openSidebar() {
     sidebar.classList.toggle('open')
 }
 
+function changeTrackDetails() {
+    track.src = tracks[currentTrack].url
+    trackArtist.innerHTML = tracks[currentTrack].artist
+    trackTitle.innerHTML = tracks[currentTrack].title
+    trackCover.src = tracks[currentTrack].cover
+}
+
+function changePlaylistActive() {
+    let tracklistCards = document.querySelectorAll('.track-card')
+    //prima tolgo da tutte le card la classe active, poi la aggiungo a quella che ho cliccato
+    tracklistCards.forEach((card, index) =>{
+        if (index == currentTrack) {
+            card.classList.add('active')
+            
+        }else{
+            card.classList.remove('active')
+        }
+    })
+    
+}
+
 function populateTrackList() {
     let wrapper = document.querySelector('#tracklist-wrapper')
     
     
-    tracks.forEach(track =>{
+    tracks.forEach((track, index )=>{
         let card = document.createElement('div')
 
         card.classList.add('col-12')
         card.innerHTML = 
         `
-        <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b ">
+        <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b track-card">
             <img class="thumbnail" src="${track.cover}" alt="copertina">
             <div>
                 <h5 class="artist tc-linear">${track.artist}</h5>
                 <h6 class="artist tc-white">${track.title}</h6>
             </div>                
-            <i class="far fa-play-circle fs-1 tc-linear"></i>
+            <i data-track="${index}" class="fab fa-napster fs-2 tc-linear playlist-play"></i>
             
         </div>
         `
         wrapper.appendChild(card)
+    })
+
+    let playBtns = document.querySelectorAll('.playlist-play')
+    
+    playBtns.forEach(btn =>{
+        btn.addEventListener('click', ()=>{
+            let selectedTrack = btn.getAttribute('data-track')
+
+            currentTrack = selectedTrack 
+
+            changeTrackDetails()
+            changePlaylistActive()
+
+            if (playing) {
+                playing = false
+                play()
+            }    
+            
+        })
     })
 }
 
@@ -161,9 +197,7 @@ sidebarToggler.addEventListener('click', openSidebar)
 
 
 /* impostazione dati prima traccia */
-track.src = tracks[currentTrack].url
-trackArtist.innerHTML = tracks[currentTrack].artist
-trackTitle.innerHTML = tracks[currentTrack].title
-trackCover.src = tracks[currentTrack].cover
 
 populateTrackList()
+changeTrackDetails()
+changePlaylistActive()
