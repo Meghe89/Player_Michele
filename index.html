@@ -1,33 +1,33 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
+    
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-
+    
     <!-- custom css -->
     <link rel="stylesheet" href="style.css">
-
+    
     <title>Hello, world!</title>
-  </head>
-  <body>
-
+</head>
+<body>
+    
     <!-- audio tag -->
     <audio id="track" src="./audio/Ghostrifter Official - Afternoon Nap.mp3"></audio>
-
+    
     <!-- background -->
     <div id="background-image">
-
+        
     </div>
-
+    
     <!-- sidebar -->
     <div id="sidebar">
         <div class="row" id="tracklist-wrapper">
@@ -45,28 +45,43 @@
             
         </div>
     </div>
-
-    <!-- player code -->
+    
+    <!-- PLAYER -->
+    
     <div class="player vh-100">
+        <!-- header -->
         <div class="header  px-4 py-2 d-flex align-items-center justify-content-end">
             <span id="sidebar-toggle" class="mb-0"><i class="fas fa-music fs-1 tc-linear"></i></span>
         </div>
+        <!-- center -->
         <div class="display d-flex align-items-center justify-content-center">
             <img id="track-cover" class="img-fluid cover" src="./cover/cover-1.jpg" alt="Copertina Album">
         </div>
         <div class="commands">
-            <div class="row ">
-                <div class="col-3  pt-2 ps-5 ">
+            <div class="row">
+                <div class="col-3  pt-2 ps-5  ">
                     <h5 id="track-artist" class="artist tc-linear fs-3 fw-bold"></h5>
                     <h6 id="track-title" class="artist tc-white"></h6>
                 </div>
-                <div class="col-6 d-flex justify-content-center pt-2 tc-main ">
+                <div class="col-6 d-flex  justify-content-center pt-2 tc-main ">
                     <i id="prev-btn" class="far fa-arrow-alt-circle-left fs-2 pe-2 pt-1"></i>
                     <i id="play-btn" class="far fa-play-circle fs-1 tc-linear"></i>
                     <i id="pause-btn" class="far fa-pause-circle fs-1 tc-linear d-none"></i>
                     <i id="next-btn" class="far fa-arrow-alt-circle-right fs-2 pt-1 ps-2"></i>
                 </div>
-                <div class="col-3 d-flex justify-content-end tc-white ">
+                
+                <div class="col-3 d-flex justify-content-end tc-white">
+                    <!-- volume -->
+                    <div id="volume-btn" class="me-4 mt-2">
+                        <div id="volume-bar" class="volume-bar" onmousedown="grabVolHandle(event)" onmouseup="releaseVolHandle(event)" onmouseenter="releaseVolHandle(event)" onmousemove="dragVolHandle(event)">
+                            <div id="volume-slider">
+                                <div id="volume-cursor">
+                                    <div id="volume-cursor-handle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <i id="volume-icon" class="fas fa-volume-up tc-white fs-3"></i>
+                    </div>
                     <p class="pe-5 pt-2 time fs-6">
                         <span id="current-time"></span>
                         <span class="tc-linear">/</span>
@@ -74,19 +89,27 @@
                     </p>
                 </div>
             </div>
-            <!-- <div class="row bg-danger">
-                <p class="tc-main">test</p>
-            </div> -->
+            <div class="row">
+                <div class="col-6 offset-3 ">
+                    <div class=" trasporto">
+                        <div id="progress-bar" class="progress-bar" onmousemove="seekPrev(event)"  onclick="seek(event)">
+                            <div id="seek-preview">0:00</div>
+                            <span id="progress-counter"></span>
+                        </div>
+                        
+                    </div>
+                </div>             
+            </div> 
+            
         </div>
-    </div>
-
-    <!-- Bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
-    <!-- fontawesome -->
-    <script src="https://kit.fontawesome.com/4b900035da.js" crossorigin="anonymous"></script>
-
-    <!-- custom js -->
-    <script src="./script.js"></script>
-  </body>
-</html>
+        
+        <!-- Bootstrap js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        
+        <!-- fontawesome -->
+        <script src="https://kit.fontawesome.com/4b900035da.js" crossorigin="anonymous"></script>
+        
+        <!-- custom js -->
+        <script src="./script.js"></script>
+    </body>
+    </html>

@@ -38,6 +38,10 @@ let playing = false
 
 let currentTrack = 0
 
+let volume = track.volume
+
+
+
 /* ASSOCIAZIONE DOM */
 /* funzionalità */
 let playBtn = document.querySelector('#play-btn')
@@ -52,7 +56,17 @@ let trackCover = document.querySelector('#track-cover')
 let currentTime = document.querySelector('#current-time')
 let totalTime = document.querySelector('#total-time')
 
+//query prese da Davide
+let volumeBtn = document.querySelector('#volume-btn')// Pannello volume
+let volumeBar = document.querySelector('.volume-bar')// Wrapper per lo slider del volume
+let volumeIcon = document.querySelector('#volume-icon')// Icona volume (pulsante "mute")
+let volumeSlider = document.querySelector('#volume-slider')// Slider volume (totale, height 100%)
+let volumeCursor = document.querySelector('#volume-cursor')// Slider volume (attuale, 0% < height < 100%)
+let volumeCursorHandle = document.querySelector('#volume-cursor') // Dot su slider volume (per Volume on Drag)
 
+let progressWrap = document.querySelector('#progress-bar')//Barra di avanzamento (duration)
+let progressBar = document.querySelector('#progress-counter')//Barra del progresso (currentTime)
+let seekPreview = document.querySelector('#seek-preview')// Pannello volume
 
 
 
@@ -121,17 +135,96 @@ function next() {
     
 }
 
+
+
+
+
+// ~~~~ PANNELLO VOLUME ~~~~~~~~~~~~~~~~~~ //
+//Aggiorna volume al caricamento della pagina
+updateVolumeCursor()
+//Pulsante VOLUME (MUTE)
+
+volumeIcon.addEventListener('click', ()=>{
+    if (track.volume) {
+        track.volume = 0;
+        // volumeIcon.classList.remove('fa-volume-up')
+        // volumeIcon.classList.add('fa-volume-mute')
+        updateVolumeCursor()
+    } else {
+        track.volume = volume
+        track.volume =  volume
+        // volumeIcon.classList.add('fa-volume-up')
+        // volumeIcon.classList.remove('fa-volume-mute')
+        updateVolumeCursor()
+    }
+})
+//Slider VOLUME (on wheel)
+volumeBtn.addEventListener('wheel', (event)=>{
+    if (((track.volume + event.wheelDeltaY*0.0001)<=1)&&((track.volume + event.wheelDeltaY*0.0001)>=0)){
+        track.volume += event.wheelDeltaY*0.0001
+        if (track.volume<0.05){
+            track.volume = 0
+        }
+        volume = track.volume
+        updateVolumeCursor()
+    }
+})
+//Slider VOLUME (drag/drop)
+let grabbedVol = false
+function grabVolHandle(e) {
+    grabbedVol = true
+    let x = e.offsetY;
+    if (x > 90) track.volume = 0
+    if (x-6 <= 85 && x-6 >= 0) {
+        if (x-6>=84){
+            track.volume = 0
+        }
+        if (x-6 <= 1){
+            track.volume = 1
+        }
+        let position = ((-1 * (x-6)) / volumeSlider.offsetHeight) + 1
+        console.log(position)
+        track.volume = position
+        updateVolumeCursor()
+    }
+}
+function releaseVolHandle(e){
+    grabbedVol = false
+}
+function dragVolHandle(e){
+    if(grabbedVol){
+
+        let x = e.offsetY
+        let position = ((-1 * (x)) / volumeBar.offsetHeight) + 1
+        console.log('position: ' + position)
+        if (position<0.05){
+            track.volume = 0
+        } else if (position >0.95){
+            track.volume = 1
+        } else{
+            track.volume = position;
+        }
+        updateVolumeCursor()
+        console.log(track.volume)
+    }
+
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+
 function openSidebar() {
     let sidebar = document.querySelector('#sidebar')
     sidebar.classList.toggle('open')
 }
 
 function changeTrackDetails() {
+    
     track.src = tracks[currentTrack].url
     trackArtist.innerHTML = tracks[currentTrack].artist
     trackTitle.innerHTML = tracks[currentTrack].title
     trackCover.src = tracks[currentTrack].cover
 }
+
 
 function changePlaylistActive() {
     let tracklistCards = document.querySelectorAll('.track-card')
@@ -191,6 +284,19 @@ function populateTrackList() {
 }
 
 
+
+
+
+
+// Aggiorna altezza del cursorse Volume
+function updateVolumeCursor(){
+    volumeCursor.style.height = (100 - track.volume * 100) + '%'
+    if(track.volume >= 0.50) {volumeIcon.className = "fas fa-volume-up"} else
+    if(track.volume > 0.00) {volumeIcon.className = "fas fa-volume-down"} else
+    if(track.volume == 0.00) {volumeIcon.className = "fas fa-volume-mute"}
+
+}
+
 /* EVENTI */
 playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', play)
@@ -206,6 +312,7 @@ setInterval(function(){
     totalTime. innerHTML = formatTime(track.duration)
     
 },900)
+
 
 function formatTime(sec){
     let minutes = Math.floor(sec / 60);
