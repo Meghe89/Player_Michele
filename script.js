@@ -29,19 +29,6 @@ let tracks = [
     cover : './cover/cover-4.jpg', artist : 'Ghostrifter' , title : 'Transient'},
 ]
 
-
-
-/* variabile globale per far partire la traccia */
-let track = document.querySelector('#track')
-
-let playing = false
-
-let currentTrack = 0
-
-let volume = track.volume
-
-
-
 /* ASSOCIAZIONE DOM */
 /* funzionalità */
 let playBtn = document.querySelector('#play-btn')
@@ -55,6 +42,7 @@ let trackTitle = document.querySelector('#track-title')
 let trackCover = document.querySelector('#track-cover')
 let currentTime = document.querySelector('#current-time')
 let totalTime = document.querySelector('#total-time')
+let track = document.querySelector('#track')
 
 //query prese da Davide
 let volumeBtn = document.querySelector('#volume-btn')// Pannello volume
@@ -68,9 +56,69 @@ let progressWrap = document.querySelector('#progress-bar')//Barra di avanzamento
 let progressBar = document.querySelector('#progress-counter')//Barra del progresso (currentTime)
 let seekPreview = document.querySelector('#seek-preview')// Pannello volume
 
+let progress = document.getElementById('progress');
+let progressContainer = document.getElementById('progress-container');
+let randomBtn = document.querySelector('#random-btn')
+let backgroundImage = document.querySelector('#background-image')
+
+/* variabile globale per far partire la traccia */
+let currentTrack = 0
+let playing = false
+let random = false
+let volume = track.volume
 
 
 
+
+
+function populateTrackList() {
+    let wrapper = document.querySelector('#tracklist-wrapper')
+    
+    
+    tracks.forEach((track, index )=>{
+        let card = document.createElement('div')
+
+        card.classList.add('col-12')
+        card.innerHTML = 
+        `
+        <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b track-card">
+            <img class="thumbnail" src="${track.cover}" alt="copertina">
+            <div>
+                <h5 class="artist tc-linear">${track.artist}</h5>
+                <h6 class="artist tc-white">${track.title}</h6>
+            </div>                
+            <i data-track="${index}" class="fab fa-napster fs-2 tc-linear playlist-play"></i>
+            
+        </div>
+        `
+        wrapper.appendChild(card)
+    })
+
+    let playBtns = document.querySelectorAll('.playlist-play')
+    
+    playBtns.forEach(btn =>{
+        btn.addEventListener('click', ()=>{
+            let selectedTrack = btn.getAttribute('data-track')
+
+            currentTrack = selectedTrack 
+
+            changeTrackDetails()
+            changePlaylistActive()
+
+            if (playing) {
+                playing = false
+                play()
+            }    
+            
+        })
+    })
+}
+
+
+function openSidebar() {
+    let sidebar = document.querySelector('#sidebar')
+    sidebar.classList.toggle('open')
+}
 
 
 
@@ -94,7 +142,12 @@ function play() {
 }
 
 function prev() {
-    currentTrack--
+    if (random === false) {
+        currentTrack--        
+    }else{
+        currentTrack = [Math.floor(Math.random() * tracks.length)]
+
+    }  
     
     if (currentTrack < 0) {
         currentTrack = tracks.length -1
@@ -115,7 +168,14 @@ function prev() {
 }
 
 function next() {
-    currentTrack++
+
+    if (random === false) {
+        currentTrack++        
+    }else{
+        currentTrack = [Math.floor(Math.random() * tracks.length)]
+
+    }  
+    
     
     if (currentTrack > tracks.length -1) {
         currentTrack = 0
@@ -196,7 +256,7 @@ function dragVolHandle(e){
 
         let x = e.offsetY
         let position = ((-1 * (x)) / volumeBar.offsetHeight) + 1
-        console.log('position: ' + position)
+        
         if (position<0.05){
             track.volume = 0
         } else if (position >0.95){
@@ -205,17 +265,14 @@ function dragVolHandle(e){
             track.volume = position;
         }
         updateVolumeCursor()
-        console.log(track.volume)
+       
     }
 
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 
-function openSidebar() {
-    let sidebar = document.querySelector('#sidebar')
-    sidebar.classList.toggle('open')
-}
+
 
 function changeTrackDetails() {
     
@@ -223,6 +280,7 @@ function changeTrackDetails() {
     trackArtist.innerHTML = tracks[currentTrack].artist
     trackTitle.innerHTML = tracks[currentTrack].title
     trackCover.src = tracks[currentTrack].cover
+    backgroundImage.src = tracks[currentTrack].cover
 }
 
 
@@ -240,50 +298,22 @@ function changePlaylistActive() {
     
 }
 
-function populateTrackList() {
-    let wrapper = document.querySelector('#tracklist-wrapper')
+
+
+function activeRandom(){
     
+    randomBtn.classList.toggle('active')
+    if(random){
+        random = false
+        /* play() */
+    } else {
+        random = true
+        /* play() */
+    }
     
-    tracks.forEach((track, index )=>{
-        let card = document.createElement('div')
-
-        card.classList.add('col-12')
-        card.innerHTML = 
-        `
-        <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b track-card">
-            <img class="thumbnail" src="${track.cover}" alt="copertina">
-            <div>
-                <h5 class="artist tc-linear">${track.artist}</h5>
-                <h6 class="artist tc-white">${track.title}</h6>
-            </div>                
-            <i data-track="${index}" class="fab fa-napster fs-2 tc-linear playlist-play"></i>
-            
-        </div>
-        `
-        wrapper.appendChild(card)
-    })
-
-    let playBtns = document.querySelectorAll('.playlist-play')
-    
-    playBtns.forEach(btn =>{
-        btn.addEventListener('click', ()=>{
-            let selectedTrack = btn.getAttribute('data-track')
-
-            currentTrack = selectedTrack 
-
-            changeTrackDetails()
-            changePlaylistActive()
-
-            if (playing) {
-                playing = false
-                play()
-            }    
-            
-        })
-    })
+   
 }
-
-
+randomBtn.addEventListener('click', activeRandom)
 
 
 
@@ -302,16 +332,11 @@ playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', play)
 nextBtn.addEventListener('click', next)
 prevBtn.addEventListener('click', prev)
-track-addEventListener('ended', next)
+track.addEventListener('ended', next)
 
 
 sidebarToggler.addEventListener('click', openSidebar)
 
-setInterval(function(){
-    currentTime. innerHTML = formatTime(track.currentTime)
-    totalTime. innerHTML = formatTime(track.duration)
-    
-},900)
 
 
 function formatTime(sec){
@@ -324,6 +349,29 @@ function formatTime(sec){
 }
 
 
+function updateProgress(e) {
+    let { duration, currentTime } = e.srcElement;
+    let progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+    
+}
+
+progressContainer.addEventListener('click', setProgress);
+
+function setProgress(e) {
+    let width = this.clientWidth;
+    let clickX = e.offsetX;
+    let duration = track.duration;
+    
+    track.currentTime = (clickX / width) * duration;
+}
+
+setInterval(function(){
+    currentTime. innerHTML = formatTime(track.currentTime)
+    totalTime. innerHTML = formatTime(track.duration)
+    
+},900)
+  
 /* impostazione dati prima traccia */
 
 populateTrackList()

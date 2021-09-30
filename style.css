@@ -56,7 +56,7 @@
     background-image: url('./cover/cover-6.jpg');
     z-index: -1;
     background-position: center;
-    background-size: cover;
+    /* background-size: cover; */
     filter: blur(5px);
 }
 #sidebar{
@@ -91,6 +91,7 @@
     width: 100vw;
     height: 76vh;
     background-color: transparent;
+    padding-bottom: 49px!important;
 }
 .cover{
     width: 250px;
@@ -117,7 +118,7 @@
     margin: 0!important;
     padding: 9px 9px!important;
 }
-#play-btn, #pause-btn, #next-btn, #prev-btn, #sidebar-toggle{
+#play-btn, #pause-btn, #next-btn, #prev-btn, #sidebar-toggle,#random-btn{
     cursor: pointer;
 }
 .thumbnail{
@@ -149,7 +150,7 @@
     cursor: pointer;
     width: 27px;
     position: absolute;
-    bottom: 50px;
+    bottom: 51px;
     right: 120px;
     transition: .2s;
     transform-origin: center bottom;
@@ -196,7 +197,7 @@
     border-radius: 50%;
 }
 
-.progressbar{
+/* .progressbar{
     cursor: pointer,!important;
     position:relative;
     height:3px;
@@ -214,7 +215,7 @@
     display:block;
     box-shadow:0px 0px 5px 2px rgba(140, 205, 240, 0.228);
     border-radius:3px;
-    /* border-right:4px inset var(--accent); */
+    
     height:3px;
     width:0%;
     background-color:green;
@@ -256,11 +257,29 @@
 .trasporto{
     right:10px;
     bottom: 30px;
-}
+} */
+.progress-container {
+    background: var(--white);
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    height: 4px;
+    width: 100%;
+  }
 
+  .progress {
+    background: linear-gradient(to right, var(--main), var(--middle), var(--sec));
+    border-radius: 5px;
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
 
-
-
+  #random-btn.active{
+    color: var(--middle);
+    text-shadow: 10px 1px 10px var(--black);
+    
+  }
 
 @keyframes loading {
     0%{
@@ -272,8 +291,11 @@
     }
 }
 
+/* @media  screen and(min-width: 576px{
+    
+} */
 
-@media only screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
     /* for Desktop */
     .cover{
         width: 650px;
@@ -297,5 +319,23 @@
     }
     .time{
         font-size: 25px!important;
+    }
+    
+}
+@media screen and (min-width: 576px){
+    .cover{
+        width: 400px;
+        height: 400px;
+        border-radius: 100% ;
+        transition: all 0.5s;
+        
+    }
+    #track-cover.active{
+        width: 450px;
+        height: 450px;
+        animation-name: play;
+        animation-duration: 5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
     }
 }

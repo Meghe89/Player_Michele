@@ -24,8 +24,8 @@
     <audio id="track" src="./audio/Ghostrifter Official - Afternoon Nap.mp3"></audio>
     
     <!-- background -->
-    <div id="background-image">
-        
+    <div>
+        <img  id="background-image" src="./cover/cover-6.jpg" alt="">
     </div>
     
     <!-- sidebar -->
@@ -51,7 +51,7 @@
     <div class="player vh-100">
         <!-- header -->
         <div class="header  px-4 py-2 d-flex align-items-center justify-content-end">
-            <span id="sidebar-toggle" class="mb-0"><i class="fas fa-music fs-1 tc-linear"></i></span>
+            <span id="sidebar-toggle" class="mb-0"><i class="fas fa-music fs-3 tc-linear"></i></span>
         </div>
         <!-- center -->
         <div class="display d-flex align-items-center justify-content-center">
@@ -64,6 +64,7 @@
                     <h6 id="track-title" class="artist tc-white"></h6>
                 </div>
                 <div class="col-6 d-flex  justify-content-center pt-2 tc-main ">
+                    <i id="random-btn" class="fas fa-random fs-5 pt-3 pe-3"></i>
                     <i id="prev-btn" class="far fa-arrow-alt-circle-left fs-2 pe-2 pt-1"></i>
                     <i id="play-btn" class="far fa-play-circle fs-1 tc-linear"></i>
                     <i id="pause-btn" class="far fa-pause-circle fs-1 tc-linear d-none"></i>
@@ -80,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <i id="volume-icon" class="fas fa-volume-up tc-white fs-3"></i>
+                        <i id="volume-icon" class="fas fa-volume-up tc-white fs-1"></i>
                     </div>
                     <p class="pe-5 pt-2 time fs-6">
                         <span id="current-time"></span>
@@ -91,13 +92,11 @@
             </div>
             <div class="row">
                 <div class="col-6 offset-3 ">
-                    <div class=" trasporto">
-                        <div id="progress-bar" class="progress-bar" onmousemove="seekPrev(event)"  onclick="seek(event)">
-                            <div id="seek-preview">0:00</div>
-                            <span id="progress-counter"></span>
-                        </div>
-                        
-                    </div>
+                    <div class="progress-container" id="progress-container">
+                        <div class="progress" id="progress"></div>
+                        <div id="seek-preview"></div>
+                      </div>
+                    
                 </div>             
             </div> 
             
