@@ -60,6 +60,7 @@ let progress = document.getElementById('progress');
 let progressContainer = document.getElementById('progress-container');
 let randomBtn = document.querySelector('#random-btn')
 let backgroundImage = document.querySelector('#background-image')
+let trackCard = document.querySelectorAll('.track-card')
 
 /* variabile globale per far partire la traccia */
 let currentTrack = 0
@@ -84,8 +85,8 @@ function populateTrackList() {
         <div class="d-flex justify-content-between align-items-center px-4 py-3 border-b track-card">
             <img class="thumbnail" src="${track.cover}" alt="copertina">
             <div>
-                <h5 class="artist tc-linear">${track.artist}</h5>
-                <h6 class="artist tc-white">${track.title}</h6>
+                <h5 class=" tc-linear">${track.artist}</h5>
+                <h6 class=" tc-white">${track.title}</h6>
             </div>                
             <i data-track="${index}" class="fab fa-napster fs-2 tc-linear playlist-play"></i>
             
@@ -120,7 +121,10 @@ function openSidebar() {
     sidebar.classList.toggle('open')
 }
 
-
+function closeSidebar(){
+    sidebar.classList.remove('open')
+    play()
+}
 
 
 /* FUNZIONI */
@@ -300,6 +304,7 @@ function changePlaylistActive() {
 
 
 
+
 function activeRandom(){
     
     randomBtn.classList.toggle('active')
@@ -336,6 +341,7 @@ track.addEventListener('ended', next)
 
 
 sidebarToggler.addEventListener('click', openSidebar)
+
 
 
 
