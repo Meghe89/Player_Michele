@@ -354,11 +354,14 @@ function formatTime(sec){
     return `${minutes}.${seconds}`;
 }
 
+let barProgress = document.querySelector('#progress')
+
+
 
 function updateProgress(e) {
     let { duration, currentTime } = e.srcElement;
     let progressPercent = (currentTime / duration) * 100;
-    progress.style.width = `${progressPercent}%`;
+    barProgress.style.width = `${progressPercent}%`;
     
 }
 
@@ -375,7 +378,11 @@ function setProgress(e) {
 setInterval(function(){
     currentTime. innerHTML = formatTime(track.currentTime)
     totalTime. innerHTML = formatTime(track.duration)
+    let barProgress = document.querySelector('#progress')
+    let progressPercent = (track.currentTime / track.duration) * 100;
+    barProgress.style.width = `${progressPercent}%`;
     
+    console.log(barProgress);    
 },900)
   
 /* impostazione dati prima traccia */
