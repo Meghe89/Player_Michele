@@ -24,7 +24,7 @@
     color: var(--white);
 }
 .tc-linear{
-    background: linear-gradient(to right, var(--main), var(--middle), var(--sec), var(--accent));
+    background: linear-gradient(to right, var(--main), var(--sec), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

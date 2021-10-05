@@ -388,9 +388,12 @@ function setProgress(e) {
     track.currentTime = (clickX / width) * duration;
 }
 
+
+
 setInterval(function(){
-    currentTime. innerHTML = formatTime(track.currentTime)
-    totalTime. innerHTML = formatTime(track.duration)
+    currentTime. innerHTML = formatTime(track.currentTime)    
+    totalTime. innerHTML = formatTime('-' + track.duration - track.currentTime)
+    console.log(totalTime);
     let barProgress = document.querySelector('#progress')
     let progressPercent = (track.currentTime / track.duration) * 100;
     barProgress.style.width = `${progressPercent}%`;
