@@ -105,11 +105,7 @@ function populateTrackList() {
 
             changeTrackDetails()
             changePlaylistActive()
-
-            if (playing) {
-                playing = false
-                play()
-            }    
+            closeSidebar()   
             
         })
     })
@@ -123,7 +119,15 @@ function openSidebar() {
 
 function closeSidebar(){
     sidebar.classList.remove('open')
-    play()
+    if (!playing) {
+        
+        play()
+        console.log(playing);
+    } else{
+        playing = false
+        play()
+        console.log(playing);
+    }
 }
 
 
@@ -342,7 +346,16 @@ track.addEventListener('ended', next)
 
 sidebarToggler.addEventListener('click', openSidebar)
 
+function barEvent(){
+    document.addEventListener('keydown', (e)=>{
+        if (e.code == 'Space') {
+            play()
+        } else{
+            console.log('errore');
+        }
+    })
 
+}
 
 
 function formatTime(sec){
@@ -390,3 +403,4 @@ setInterval(function(){
 populateTrackList()
 changeTrackDetails()
 changePlaylistActive()
+barEvent()

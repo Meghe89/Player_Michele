@@ -275,6 +275,26 @@
     }
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height:1px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: linear-gradient(var(--main) , var(--black) );
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background:  var(--accent);
+}
+
 /* @media  screen and(min-width: 576px{
     
 } */
