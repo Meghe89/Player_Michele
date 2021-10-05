@@ -382,7 +382,7 @@ setInterval(function(){
     let progressPercent = (track.currentTime / track.duration) * 100;
     barProgress.style.width = `${progressPercent}%`;
     
-    console.log(barProgress);    
+       
 },900)
   
 /* impostazione dati prima traccia */
