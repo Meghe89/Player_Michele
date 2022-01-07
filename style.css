@@ -104,7 +104,7 @@
     ani
 } */
 .player .commands{
-    height: 98px;
+    height: 97px;
     width: 100%;
     background-color: var(--black);
     position: fixed;
