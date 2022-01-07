@@ -104,11 +104,19 @@
     ani
 } */
 .player .commands{
-    height: 96px;
+    height: 98px;
     width: 100%;
     background-color: var(--black);
     position: fixed;
     bottom: 0;
+}
+#track-cover.active{
+    width: 300px;
+    height: 300px;
+    animation-name: play;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 .artist{
     font-size: 15px;
